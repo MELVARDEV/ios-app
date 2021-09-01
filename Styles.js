@@ -3,19 +3,18 @@ import {StyleSheet} from 'react-native'
 
 export const styles = StyleSheet.create({
     view:{
-        backgroundColor: '#121212',
-        width: "100%",
-        height: "100%"
+        // backgroundColor: '#050505',
+        flex:1
     },
     header:{
-        color: '#fcfcfc', // <-- The magic
-	    textAlign: 'center', // <-- The magic
+	    textAlign: 'center', 
 	    fontWeight: 'bold',
 	    fontSize: 30,
     },
     loginContainer: {
-        marginTop: "20%",
-        padding:30
+        backgroundColor:'black',
+        padding:30,
+        paddingTop: "30%"
     },
     label:{
         color: "#fff", // <-- The magic
@@ -27,10 +26,11 @@ export const styles = StyleSheet.create({
     input: {
         height: 50,
         margin: 12,
-        borderColor:"#919191",
+        borderColor:"#1c1c1c",
+        backgroundColor:"#121212",
         color: '#919191',
         fontSize:20,
-        borderRadius: 5,
+        borderRadius: 8,
         borderWidth: 1,
         padding: 10,
       },
@@ -40,5 +40,12 @@ export const styles = StyleSheet.create({
           alignItems:"center",
           borderRadius:30,
           backgroundColor:"#dc1f43"
+      },
+      card: {
+        backgroundColor: 'rgba(120,120,120,0.2)',
+        borderRadius:8,
+        padding: 5,
+        paddingVertical: 10,
+        margin: 10
       }
 })  

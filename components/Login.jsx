@@ -10,10 +10,14 @@ import {
 } from "react-native";
 import { styles } from "../Styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AppearanceProvider, useColorScheme } from "react-native-appearance";
+import { useTheme } from '@react-navigation/native';
 
-export default function Login() {
+export default function Login({ isLoggedIn, setIsLoggedIn }) {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
+    const scheme = useColorScheme();
+    const { colors } = useTheme();
 
     let handleLogin = async () => {
         const requestOptions = {
@@ -31,7 +35,7 @@ export default function Login() {
                 console.log(userResponse);
                 await AsyncStorage.setItem("auth-token", userResponse);
                 await AsyncStorage.setItem("userQuery", userName);
-          
+                setIsLoggedIn(true);
                 // return user;
             })
             .catch((error) => {
@@ -43,10 +47,9 @@ export default function Login() {
     let handleResponse = (response) => {
         return response.text().then((text) => {
             if (!response.ok) {
-              
                 if (response.status === 401) {
                 }
-          
+
                 const error = text || response.statusText;
                 return Promise.reject(error);
             }
@@ -55,45 +58,49 @@ export default function Login() {
     };
 
     return (
-        <View style={styles.loginContainer}>
-            <Text style={[styles.header, { marginBottom: 30 }]}>Login</Text>
-            <Text style={[styles.label, { marginLeft: 20 }]}>
-                Username or E-Mail
-            </Text>
-            <TextInput
-                style={styles.input}
-                onChangeText={(text) => setUserName(text)}
-                value={userName}
-                autoCompleteType="username"
-                returnKeyType="next"
-                textContentType="username"
-                keyboardAppearance="dark"
-            />
-
-            <Text style={[styles.label, { marginLeft: 20 }]}>Password</Text>
-            <TextInput
-                style={styles.input}
-                autoCompleteType="password"
-                textContentType="password"
-                onSubmitEditing={handleLogin}
-                onChangeText={(text) => setPassword(text)}
-                value={password}
-                secureTextEntry={true}
-                returnKeyType="done"
-                keyboardAppearance="dark"
-            />
-            <TouchableOpacity
-                onPress={handleLogin}
-                style={styles.button}
-                color="#dc1f42"
-            >
-                <Text
-                    style={{ color: "white", fontWeight: "600", fontSize: 25 }}
-                >
-                    Login
+        <AppearanceProvider>
+            <View style={[styles.view, styles.loginContainer]}>
+                {/* <Text style={[styles.header, { marginBottom: 30 }]}>Exory</Text> */}
+                <Text style={[styles.label, { marginLeft: 20},]}>
+                    Username or E-Mail
                 </Text>
-            </TouchableOpacity>
-        </View>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => setUserName(text)}
+                    value={userName}
+                    autoCompleteType="username"
+                    returnKeyType="next"
+                    textContentType="username"
+                />
+
+                <Text style={[styles.label, { marginLeft: 20 }]}>Password</Text>
+                <TextInput
+                    style={styles.input}
+                    autoCompleteType="password"
+                    textContentType="password"
+                    onSubmitEditing={handleLogin}
+                    onChangeText={(text) => setPassword(text)}
+                    value={password}
+                    secureTextEntry={true}
+                    returnKeyType="done"
+                />
+                <TouchableOpacity
+                    onPress={handleLogin}
+                    style={styles.button}
+                    color="#dc1f42"
+                >
+                    <Text
+                        style={{
+                            color: "white",
+                            fontWeight: "600",
+                            fontSize: 25,
+                        }}
+                    >
+                        Login
+                    </Text>
+                </TouchableOpacity>
+            </View>
+        </AppearanceProvider>
     );
 }
 
