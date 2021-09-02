@@ -1,6 +1,11 @@
 
 import {StyleSheet} from 'react-native'
 
+
+
+
+
+
 export const styles = StyleSheet.create({
     view:{
         // backgroundColor: '#050505',
@@ -42,10 +47,16 @@ export const styles = StyleSheet.create({
           backgroundColor:"#dc1f43"
       },
       card: {
-        backgroundColor: 'rgba(120,120,120,0.2)',
+        // backgroundColor: 'rgba(120,120,120,0.2)',
         borderRadius:8,
+        // height: 220,
         padding: 5,
-        paddingVertical: 10,
+        paddingVertical: 16,
         margin: 10
+      },
+      discordLogo: {
+          alignSelf:'center',
+          width: 30,
+          height: 30
       }
 })  

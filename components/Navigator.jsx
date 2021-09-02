@@ -6,15 +6,31 @@ import {
     DefaultTheme,
 } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from "./Home";
 import { AppearanceProvider, useColorScheme } from "react-native-appearance";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import Account from "./Account";
+import Account from "./AccountTab/Account";
+import ChangePassword from "./AccountTab/ChangePassword";
 
 const Tab = createBottomTabNavigator();
 
 export default function Navigator({ setIsLoggedIn, user }) {
     const scheme = useColorScheme();
+
+    const AccountStack = createNativeStackNavigator();
+
+    function AccountStackScreen() {
+        return (
+            <AccountStack.Navigator>
+                <AccountStack.Screen options={{}} name="Account">
+                    {props => <Account {...props} setIsLoggedIn={setIsLoggedIn} user={user}/>}
+                </AccountStack.Screen>
+                <AccountStack.Screen name="Change Password"  component={ChangePassword} />
+            </AccountStack.Navigator>
+        );
+    }
+
 
     return (
         <AppearanceProvider>
@@ -53,8 +69,9 @@ export default function Navigator({ setIsLoggedIn, user }) {
                     <Tab.Screen name="Home" component={Home} />
                     <Tab.Screen
                         name="Account"
+                        options={{headerShown:false}}
                         children={() => (
-                            <Account setIsLoggedIn={setIsLoggedIn} user={user} />
+                            <AccountStackScreen setIsLoggedIn={setIsLoggedIn} user={user} />
                         )}
                     />
                 </Tab.Navigator>
