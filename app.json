@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ios-app",
-    "slug": "ios-app",
+    "name": "Exory",
+    "slug": "Exory",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/exory-logo512x512.png",
@@ -14,11 +14,13 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
-      "**/*"
+      "**/*",
+      "assets/*"
     ],
     "ios": {
       "supportsTablet": true,
-      "userInterfaceStyle": "automatic"
+      "userInterfaceStyle": "automatic",
+      "bundleIdentifier": "com.melvar.Exory"
     },
     "android": {
       "adaptiveIcon": {
