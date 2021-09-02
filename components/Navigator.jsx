@@ -12,6 +12,7 @@ import { AppearanceProvider, useColorScheme } from "react-native-appearance";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Account from "./AccountTab/Account";
 import ChangePassword from "./AccountTab/ChangePassword";
+import ConnectDiscord from "./AccountTab/ConnectDiscord";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,10 +24,15 @@ export default function Navigator({ setIsLoggedIn, user }) {
     function AccountStackScreen() {
         return (
             <AccountStack.Navigator>
-                <AccountStack.Screen options={{}} name="Account">
-                    {props => <Account {...props} setIsLoggedIn={setIsLoggedIn} user={user}/>}
+                <AccountStack.Screen options={{title:'Account'}} name="account">
+                    {props => <Account {...props} setIsLoggedIn={setIsLoggedIn} user={user} />}
                 </AccountStack.Screen>
-                <AccountStack.Screen name="Change Password"  component={ChangePassword} />
+                <AccountStack.Screen options={{title: 'Change Password'}} name="changePassword">
+                    {props => <ChangePassword {...props} setIsLoggedIn={setIsLoggedIn} user={user} />}
+                </AccountStack.Screen>            
+                <AccountStack.Screen options={{title: 'Connect Discord'}} name="connectDiscord">
+                    {props => <ConnectDiscord {...props} user={user} />}
+                </AccountStack.Screen>     
             </AccountStack.Navigator>
         );
     }
@@ -69,7 +75,7 @@ export default function Navigator({ setIsLoggedIn, user }) {
                     <Tab.Screen name="Home" component={Home} />
                     <Tab.Screen
                         name="Account"
-                        options={{headerShown:false}}
+                        options={{ headerShown: false}}
                         children={() => (
                             <AccountStackScreen setIsLoggedIn={setIsLoggedIn} user={user} />
                         )}

@@ -9,15 +9,17 @@ import {
     Vibration,
     View,
 } from "react-native";
-import { styles } from "../Styles";
+import { styles } from "../../Styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useTheme } from "@react-navigation/native";
+
 import { AppearanceProvider, useColorScheme } from "react-native-appearance";
-import OptionsListItem from './OptionsListItem'
+import OptionsListItem from '../OptionsListItem'
+import { useTheme } from "@react-navigation/native";
+
 
 export default function Account({ setIsLoggedIn, user, navigation }) {
     const { colors } = useTheme();
-    const { scheme } = useColorScheme();
+
 
     let logOut = async () => {
 
@@ -56,7 +58,7 @@ export default function Account({ setIsLoggedIn, user, navigation }) {
                         <View style={{ flex: 1, justifyContent: 'center' }}>
                             <Image
                                 style={styles.discordLogo}
-                                source={require('../assets/discord-logo.png')}
+                                source={require('../../assets/discord-logo.png')}
                             />
                             <Text style={{ color: colors.text, textAlign: "center", marginTop: 5 }}>
                                 {user && user.discordTag ? user.discordTag : "Not connected"}
@@ -66,7 +68,7 @@ export default function Account({ setIsLoggedIn, user, navigation }) {
                         <View style={{ flex: 1, justifyContent: 'center' }}>
                             <Image
                                 style={styles.discordLogo}
-                                source={require('../assets/email.png')}
+                                source={require('../../assets/email.png')}
                             />
                             <Text style={{ color: colors.text, textAlign: "center", marginTop: 5 }}>
                                 {user && user.email}
@@ -102,10 +104,10 @@ export default function Account({ setIsLoggedIn, user, navigation }) {
                     
                 </View>
                 <View>
-                    <OptionsListItem onPress={() => {navigation.navigate("Change Password")}} text="Change password" icon={require('../assets/fingerprint.png')}/>
-                    <OptionsListItem text="Connect discord account" icon={require('../assets/discord-logo.png')}/>
-                    <OptionsListItem text="View account info" icon={require('../assets/user-details.png')}/>
-                    <OptionsListItem text="App settings" icon={require('../assets/settings.png')}/>
+                    <OptionsListItem onPress={() => {navigation.navigate("changePassword")}} text="Change password" icon={require('../../assets/fingerprint.png')}/>
+                    <OptionsListItem onPress={() => {navigation.navigate("connectDiscord")}}  text="Connect discord account" icon={require('../../assets/discord-logo.png')}/>
+                    <OptionsListItem text="View account info" icon={require('../../assets/user-details.png')}/>
+                    <OptionsListItem text="App settings" icon={require('../../assets/settings.png')}/>
                 </View>
             </ScrollView>
         </AppearanceProvider>
