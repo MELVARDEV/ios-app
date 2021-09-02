@@ -6,8 +6,8 @@ import { useTheme } from "@react-navigation/native";
 export default function Home() {
     const { colors } = useTheme();
     return (
-        <View style={styles.view}>
-            
+        <View style={[styles.view, {padding: 20}]}>
+            <Text style={{color:colors.text}}>Home Page</Text>
         </View>
     );
 }
