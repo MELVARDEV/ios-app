@@ -5,7 +5,7 @@ import {
     TouchableOpacity,
     Text,
     TextInput,
-    Touchable,
+    StatusBar,
     View,
 } from "react-native";
 import { styles } from "../Styles";
@@ -16,6 +16,7 @@ import { useTheme } from '@react-navigation/native';
 export default function Login({ isLoggedIn, setIsLoggedIn }) {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
+    const [errMsg, setErrMsg] = useState("")
     const scheme = useColorScheme();
     const { colors } = useTheme();
 
@@ -39,7 +40,7 @@ export default function Login({ isLoggedIn, setIsLoggedIn }) {
                 // return user;
             })
             .catch((error) => {
-                console.log(error);
+                setErrMsg(error)
             });
     };
 
@@ -59,6 +60,9 @@ export default function Login({ isLoggedIn, setIsLoggedIn }) {
 
     return (
         <AppearanceProvider>
+             <StatusBar
+                barStyle={"light-content"}
+            />
             <View style={[styles.view, styles.loginContainer]}>
                 {/* <Text style={[styles.header, { marginBottom: 30 }]}>Exory</Text> */}
                 <Text style={[styles.label, { marginLeft: 20},]}>
@@ -69,6 +73,7 @@ export default function Login({ isLoggedIn, setIsLoggedIn }) {
                     onChangeText={(text) => setUserName(text)}
                     value={userName}
                     autoCompleteType="username"
+                    keyboardAppearance='dark'
                     returnKeyType="next"
                     textContentType="username"
                 />
@@ -79,11 +84,13 @@ export default function Login({ isLoggedIn, setIsLoggedIn }) {
                     autoCompleteType="password"
                     textContentType="password"
                     onSubmitEditing={handleLogin}
+                    keyboardAppearance='dark'
                     onChangeText={(text) => setPassword(text)}
                     value={password}
                     secureTextEntry={true}
                     returnKeyType="done"
                 />
+                <Text style={[styles.label, { color: 'red', textAlign:'center', marginTop:-4, marginBottom:-13 }]}>{errMsg && errMsg}</Text>
                 <TouchableOpacity
                     onPress={handleLogin}
                     style={styles.button}

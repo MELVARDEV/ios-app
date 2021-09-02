@@ -37,7 +37,7 @@ export default function Account({ setIsLoggedIn, user, navigation }) {
                     text: "Log out", onPress: async () => {
                         await AsyncStorage.removeItem("auth-token");
                         setIsLoggedIn(false);
-                    },
+                    },style: "destructive"
 
                 }
             ]
@@ -91,7 +91,7 @@ export default function Account({ setIsLoggedIn, user, navigation }) {
                             }}
                         />
                         {user && (
-                            <Text style={[{ color: colors.text }, styles.header]}>
+                            <Text style={[{ color: colors.text }, styles.header, {fontSize: 26}]}>
                                 {user.name}
                             </Text>
                         )}
@@ -105,7 +105,7 @@ export default function Account({ setIsLoggedIn, user, navigation }) {
                 </View>
                 <View>
                     <OptionsListItem onPress={() => {navigation.navigate("changePassword")}} text="Change password" icon={require('../../assets/fingerprint.png')}/>
-                    <OptionsListItem onPress={() => {navigation.navigate("connectDiscord")}}  text="Connect discord account" icon={require('../../assets/discord-logo.png')}/>
+                    <OptionsListItem onPress={() => {navigation.navigate("manageDiscord")}}  text="Manage Discord" icon={require('../../assets/discord-logo.png')}/>
                     <OptionsListItem text="View account info" icon={require('../../assets/user-details.png')}/>
                     <OptionsListItem text="App settings" icon={require('../../assets/settings.png')}/>
                 </View>

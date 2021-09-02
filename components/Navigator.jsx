@@ -12,7 +12,9 @@ import { AppearanceProvider, useColorScheme } from "react-native-appearance";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Account from "./AccountTab/Account";
 import ChangePassword from "./AccountTab/ChangePassword";
-import ConnectDiscord from "./AccountTab/ConnectDiscord";
+import ConnectDiscord from "./AccountTab/ManageDiscord";
+import AdminPanel from './AdminPanelTab/AdminPanel'
+import UserList from "./AdminPanelTab/UserList";
 
 const Tab = createBottomTabNavigator();
 
@@ -24,16 +26,31 @@ export default function Navigator({ setIsLoggedIn, user }) {
     function AccountStackScreen() {
         return (
             <AccountStack.Navigator>
-                <AccountStack.Screen options={{title:'Account'}} name="account">
+                <AccountStack.Screen options={{ title: 'Account' }} name="account">
                     {props => <Account {...props} setIsLoggedIn={setIsLoggedIn} user={user} />}
                 </AccountStack.Screen>
-                <AccountStack.Screen options={{title: 'Change Password'}} name="changePassword">
+                <AccountStack.Screen options={{ title: 'Change Password' }} name="changePassword">
                     {props => <ChangePassword {...props} setIsLoggedIn={setIsLoggedIn} user={user} />}
-                </AccountStack.Screen>            
-                <AccountStack.Screen options={{title: 'Connect Discord'}} name="connectDiscord">
+                </AccountStack.Screen>
+                <AccountStack.Screen options={{ title: 'Manage Discord' }} name="manageDiscord">
                     {props => <ConnectDiscord {...props} user={user} />}
-                </AccountStack.Screen>     
+                </AccountStack.Screen>
             </AccountStack.Navigator>
+        );
+    }
+
+    const AdminStack = createNativeStackNavigator();
+
+    function AdminStackScreen() {
+        return (
+            <AdminStack.Navigator>
+                <AdminStack.Screen options={{ title: 'Admin' }} name="admin">
+                    {props => <AdminPanel {...props} setIsLoggedIn={setIsLoggedIn} user={user} />}
+                </AdminStack.Screen>
+                <AdminStack.Screen options={{ title: 'User List' }} name="userList">
+                    {props => <UserList {...props} setIsLoggedIn={setIsLoggedIn} user={user} />}
+                </AdminStack.Screen>
+            </AdminStack.Navigator>
         );
     }
 
@@ -59,6 +76,10 @@ export default function Navigator({ setIsLoggedIn, user }) {
                                 iconName = focused
                                     ? "ios-person"
                                     : "ios-person-outline";
+                            } else if (route.name === "Admin") {
+                                iconName = focused
+                                ? "ios-hammer"
+                                : "ios-hammer-outline";
                             }
                             return (
                                 <Ionicons
@@ -73,13 +94,21 @@ export default function Navigator({ setIsLoggedIn, user }) {
                     })}
                 >
                     <Tab.Screen name="Home" component={Home} />
+                    {user && user.admin && <Tab.Screen
+                        name="Admin"
+                        options={{ headerShown: false }}
+                        children={() => (
+                            <AdminStackScreen setIsLoggedIn={setIsLoggedIn} user={user} />
+                        )}
+                    />}
                     <Tab.Screen
                         name="Account"
-                        options={{ headerShown: false}}
+                        options={{ headerShown: false }}
                         children={() => (
                             <AccountStackScreen setIsLoggedIn={setIsLoggedIn} user={user} />
                         )}
                     />
+
                 </Tab.Navigator>
             </NavigationContainer>
         </AppearanceProvider>
