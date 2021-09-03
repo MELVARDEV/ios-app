@@ -15,6 +15,7 @@ import ChangePassword from "./AccountTab/ChangePassword";
 import ConnectDiscord from "./AccountTab/ManageDiscord";
 import AdminPanel from './AdminPanelTab/AdminPanel'
 import UserList from "./AdminPanelTab/UserList";
+import UserEdit from "./AdminPanelTab/UserEdit";
 
 const Tab = createBottomTabNavigator();
 
@@ -49,6 +50,9 @@ export default function Navigator({ setIsLoggedIn, user }) {
                 </AdminStack.Screen>
                 <AdminStack.Screen options={{ title: 'User List' }} name="userList">
                     {props => <UserList {...props} setIsLoggedIn={setIsLoggedIn} user={user} />}
+                </AdminStack.Screen>
+                <AdminStack.Screen options={{ title: 'Edit User' }} name="userEdit">
+                    {props => <UserEdit {...props} setIsLoggedIn={setIsLoggedIn} user={user} />}
                 </AdminStack.Screen>
             </AdminStack.Navigator>
         );

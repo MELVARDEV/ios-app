@@ -5,7 +5,7 @@ import OptionsListItem from '../OptionsListItem';
 import { useTheme } from "@react-navigation/native";
 
 
-export default function UserList({ user }) {
+export default function UserList({ user, navigation }) {
     const { colors } = useTheme();
     const [searchQuery, setSearchQuery] = useState("")
 
@@ -80,7 +80,9 @@ export default function UserList({ user }) {
                     value={searchQuery} placeholder="Search..." style={{ backgroundColor: colors.card, color: colors.text, padding: 14, width: "90%", alignSelf: 'center', marginBottom: 20, borderRadius: 8 }} />
                 {filteredUsers ? filteredUsers.map((user =>
                     <View key={user._id}>
-                        <OptionsListItem icon={{ uri: user && user.avatar.url }} circle text={user.name} />
+                        <OptionsListItem onPress={()=> {
+                            navigation.navigate("userEdit", {currentUser: user})
+                        }} icon={{ uri: user && user.avatar.url }} circle text={user.name} />
                     </View>)) : <ActivityIndicator style={{ alignSelf: 'center', flex: 1 }} size="large" />}
             </View>
 
