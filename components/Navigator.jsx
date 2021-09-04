@@ -19,7 +19,7 @@ import UserEdit from "./AdminPanelTab/UserEdit";
 
 const Tab = createBottomTabNavigator();
 
-export default function Navigator({ setIsLoggedIn, user }) {
+export default function Navigator({ setIsLoggedIn, user, users, filteredUsers, setFilteredUsers, setUsers, getUsers }) {
     const scheme = useColorScheme();
 
     const AccountStack = createNativeStackNavigator();
@@ -49,10 +49,10 @@ export default function Navigator({ setIsLoggedIn, user }) {
                     {props => <AdminPanel {...props} setIsLoggedIn={setIsLoggedIn} user={user} />}
                 </AdminStack.Screen>
                 <AdminStack.Screen options={{ title: 'User List' }} name="userList">
-                    {props => <UserList {...props} setIsLoggedIn={setIsLoggedIn} user={user} />}
+                    {props => <UserList {...props} setIsLoggedIn={setIsLoggedIn} user={user} users={users} getUsers={getUsers} />}
                 </AdminStack.Screen>
                 <AdminStack.Screen options={{ title: 'Edit User' }} name="userEdit">
-                    {props => <UserEdit {...props} setIsLoggedIn={setIsLoggedIn} user={user} />}
+                    {props => <UserEdit {...props} setIsLoggedIn={setIsLoggedIn} getUsers={getUsers} user={user} />}
                 </AdminStack.Screen>
             </AdminStack.Navigator>
         );

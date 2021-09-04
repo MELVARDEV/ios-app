@@ -13,71 +13,119 @@ import { styles } from "../../Styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { AppearanceProvider, useColorScheme } from "react-native-appearance";
-import OptionsListItem from '../OptionsListItem'
+import OptionsListItem from "../OptionsListItem";
 import { useTheme } from "@react-navigation/native";
-
 
 export default function Account({ setIsLoggedIn, user, navigation }) {
     const { colors } = useTheme();
 
-
     let logOut = async () => {
-
-
-        Alert.alert(
-            "Log out",
-            "Do you really want to log out?",
-            [
-                {
-                    text: "No",
-                    onPress: () => console.log("Cancel Pressed"),
-                    style: "cancel"
+        Alert.alert("Log out", "Do you really want to log out?", [
+            {
+                text: "No",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel",
+            },
+            {
+                text: "Log out",
+                onPress: async () => {
+                    await AsyncStorage.removeItem("auth-token");
+                    setIsLoggedIn(false);
                 },
-                {
-                    text: "Log out", onPress: async () => {
-                        await AsyncStorage.removeItem("auth-token");
-                        setIsLoggedIn(false);
-                    },style: "destructive"
-
-                }
-            ]
-        );
-
-
+                style: "destructive",
+            },
+        ]);
     };
 
+    function getRankString(user) {
+        let rank = "User";
+        let color = colors.text;
+        if (user.vip) {
+            rank = "VIP";
+            color = "#e35f1e";
+        }
+        if (user.elite) {
+            rank = "ELITE";
+            color = "#db07c3";
+        }
+        if (user.support) {
+            rank = "SUPPORT";
+            color = "#0e8c73";
+        }
+        if (user.admin) {
+            rank = "ADMIN";
+            color = "#cc1a02";
+        }
+
+        return { rank: rank, color: color };
+    }
 
     return (
         <AppearanceProvider>
             <ScrollView style={styles.view}>
-
                 {/* User details cards */}
-                <View style={{ flex: 1, flexDirection: "row", margin: 10, flexWrap: "wrap" }}>
+                <View
+                    style={{
+                        flex: 1,
+                        flexDirection: "row",
+                        margin: 10,
+                        flexWrap: "wrap",
+                    }}
+                >
                     {/* Card 1 */}
-                    <View style={[{ flex: 1, flexDirection: 'column', justifyContent: 'center' }, styles.card, { backgroundColor: colors.card }]}>
-                        <View style={{ flex: 1, justifyContent: 'center' }}>
+                    <View
+                        style={[
+                            {
+                                flex: 1,
+                                flexDirection: "column",
+                                justifyContent: "center",
+                            },
+                            styles.card,
+                            { backgroundColor: colors.card },
+                        ]}
+                    >
+                        <View style={{ flex: 1, justifyContent: "center" }}>
                             <Image
                                 style={styles.discordLogo}
-                                source={require('../../assets/discord-logo.png')}
+                                source={require("../../assets/discord-logo.png")}
                             />
-                            <Text style={{ color: colors.text, textAlign: "center", marginTop: 5 }}>
-                                {user && user.discordTag ? user.discordTag : "Not connected"}
+                            <Text
+                                style={{
+                                    color: colors.text,
+                                    textAlign: "center",
+                                    marginTop: 5,
+                                }}
+                            >
+                                {user && user.discordTag
+                                    ? user.discordTag
+                                    : "Not connected"}
                             </Text>
                         </View>
 
-                        <View style={{ flex: 1, justifyContent: 'center' }}>
+                        <View style={{ flex: 1, justifyContent: "center" }}>
                             <Image
                                 style={styles.discordLogo}
-                                source={require('../../assets/email.png')}
+                                source={require("../../assets/email.png")}
                             />
-                            <Text style={{ color: colors.text, textAlign: "center", marginTop: 5 }}>
+                            <Text
+                                style={{
+                                    color: colors.text,
+                                    textAlign: "center",
+                                    marginTop: 5,
+                                }}
+                            >
                                 {user && user.email}
                             </Text>
                         </View>
-
                     </View>
                     {/* Card 2 */}
-                    <View style={[{ flex: 1, justifyContent: 'center' }, styles.card, { backgroundColor: colors.card }]}>
+                    <View
+                        style={[
+                            { flex: 1, justifyContent: "center" },
+                            styles.card,
+                            { backgroundColor: colors.card },
+                        ]}
+                    >
                         <Image
                             style={{
                                 width: 100,
@@ -91,9 +139,19 @@ export default function Account({ setIsLoggedIn, user, navigation }) {
                             }}
                         />
                         {user && (
-                            <Text style={[{ color: colors.text }, styles.header, {fontSize: 26}]}>
-                                {user.name}
-                            </Text>
+                            <View>
+                                {getRankString(user).rank !== "User" && <Text style={{textAlign:'center', color: getRankString(user).color, marginBottom:-4, marginTop: 14, fontWeight:'700'}}>{getRankString(user).rank}</Text>}
+                                <Text
+                                    style={[
+                                        { color: colors.text },
+                                        styles.header,
+                                        { fontSize: 26 },
+                                    ]}
+                                >
+                                    {user.name}
+                                </Text>
+                  
+                            </View>
                         )}
                         <Button
                             style={{ alignSelf: "bottom", flex: 1 }}
@@ -101,16 +159,32 @@ export default function Account({ setIsLoggedIn, user, navigation }) {
                             title="Log out"
                         />
                     </View>
-                    
                 </View>
                 <View>
-                    <OptionsListItem onPress={() => {navigation.navigate("changePassword")}} text="Change password" icon={require('../../assets/fingerprint.png')}/>
-                    <OptionsListItem onPress={() => {navigation.navigate("manageDiscord")}}  text="Manage Discord" icon={require('../../assets/discord-logo.png')}/>
-                    <OptionsListItem text="View account info" icon={require('../../assets/user-details.png')}/>
-                    <OptionsListItem text="App settings" icon={require('../../assets/settings.png')}/>
+                    <OptionsListItem
+                        onPress={() => {
+                            navigation.navigate("changePassword");
+                        }}
+                        text="Change password"
+                        icon={require("../../assets/fingerprint.png")}
+                    />
+                    <OptionsListItem
+                        onPress={() => {
+                            navigation.navigate("manageDiscord");
+                        }}
+                        text="Manage Discord"
+                        icon={require("../../assets/discord-logo.png")}
+                    />
+                    <OptionsListItem
+                        text="View account info"
+                        icon={require("../../assets/user-details.png")}
+                    />
+                    <OptionsListItem
+                        text="App settings"
+                        icon={require("../../assets/settings.png")}
+                    />
                 </View>
             </ScrollView>
         </AppearanceProvider>
-
     );
 }

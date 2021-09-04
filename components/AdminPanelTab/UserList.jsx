@@ -5,44 +5,17 @@ import OptionsListItem from '../OptionsListItem';
 import { useTheme } from "@react-navigation/native";
 
 
-export default function UserList({ user, navigation }) {
+export default function UserList({ user, navigation, users, getUsers }) {
     const { colors } = useTheme();
     const [searchQuery, setSearchQuery] = useState("")
+    const [filteredUsers, setFilteredUsers] = useState(users)
 
-    const [users, setUsers] = useState(null)
-    const [filteredUsers, setFilteredUsers] = useState([])
 
-    let getUsers = async () => {
-        const requestOptions = {
-            method: "GET",
-            headers: { "Content-Type": "application/json", "auth-token": await AsyncStorage.getItem("auth-token") },
-        };
 
-        return fetch(`https://api.exory.dev/api/user/all`, requestOptions)
-            .then(handleResponse)
-            .then(async (userResponse) => {
-                let resUsers = JSON.parse(userResponse)
 
-                let usersArray = []
-
-                resUsers.forEach(user => {
-                    user.avatar.url = user.avatar.url.replace(".svg", ".png")
-                    usersArray.push(user)
-                });
-
-                setUsers(usersArray)
-                setFilteredUsers(usersArray)
-
-                // return user;
-            })
-            .catch((error) => {
-                setErrMsg(error)
-            });
-    }
-
-    useEffect(() => {
-        getUsers()
-    }, [])
+    // useEffect(() => {
+    //     getUsers()
+    // }, [])
 
 
     // handle response != 200 and display message
