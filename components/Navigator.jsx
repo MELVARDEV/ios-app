@@ -7,15 +7,22 @@ import {
 } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useHeaderHeight } from '@react-navigation/elements';
 import Home from "./Home";
 import { AppearanceProvider, useColorScheme } from "react-native-appearance";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Account from "./AccountTab/Account";
 import ChangePassword from "./AccountTab/ChangePassword";
 import ConnectDiscord from "./AccountTab/ManageDiscord";
+import AccountInfo from "./AccountTab/AccountInfo";
 import AdminPanel from './AdminPanelTab/AdminPanel'
 import UserList from "./AdminPanelTab/UserList";
 import UserEdit from "./AdminPanelTab/UserEdit";
+import { BlurView } from 'expo-blur';
+import { Colors } from "react-native/Libraries/NewAppScreen";
+import { styles } from "../Styles";
+import { HeaderStyleInterpolators } from "@react-navigation/stack";
+
 
 const Tab = createBottomTabNavigator();
 
@@ -25,9 +32,11 @@ export default function Navigator({ setIsLoggedIn, user, users, filteredUsers, s
     const AccountStack = createNativeStackNavigator();
 
     function AccountStackScreen() {
+  
+
         return (
-            <AccountStack.Navigator>
-                <AccountStack.Screen options={{ title: 'Account' }} name="account">
+            <AccountStack.Navigator screenOptions={{headerTransparent: true, headerBlurEffect: scheme === "light" ? "light" : "dark"}}>
+                <AccountStack.Screen options={{ title: 'Account'}} name="account">
                     {props => <Account {...props} setIsLoggedIn={setIsLoggedIn} user={user} />}
                 </AccountStack.Screen>
                 <AccountStack.Screen options={{ title: 'Change Password' }} name="changePassword">
@@ -36,6 +45,9 @@ export default function Navigator({ setIsLoggedIn, user, users, filteredUsers, s
                 <AccountStack.Screen options={{ title: 'Manage Discord' }} name="manageDiscord">
                     {props => <ConnectDiscord {...props} user={user} />}
                 </AccountStack.Screen>
+                <AccountStack.Screen options={{ title: "Account Info" }} name="accountInfo">
+                    {props => <AccountInfo {...props} user={user} />}
+                </AccountStack.Screen>
             </AccountStack.Navigator>
         );
     }
@@ -43,8 +55,9 @@ export default function Navigator({ setIsLoggedIn, user, users, filteredUsers, s
     const AdminStack = createNativeStackNavigator();
 
     function AdminStackScreen() {
+
         return (
-            <AdminStack.Navigator>
+            <AdminStack.Navigator screenOptions={{headerTransparent: true, headerBlurEffect: 'dark'}}>
                 <AdminStack.Screen options={{ title: 'Admin' }} name="admin">
                     {props => <AdminPanel {...props} setIsLoggedIn={setIsLoggedIn} user={user} />}
                 </AdminStack.Screen>
@@ -63,12 +76,17 @@ export default function Navigator({ setIsLoggedIn, user, users, filteredUsers, s
         <AppearanceProvider>
             <StatusBar
                 barStyle={scheme === "light" ? "dark-content" : "light-content"}
+                
             />
             <NavigationContainer
                 theme={scheme === "dark" ? DarkTheme : DefaultTheme}
+                
             >
                 <Tab.Navigator
+                
                     screenOptions={({ route }) => ({
+                        tabBarStyle: {position: 'absolute'},
+                        tabBarBackground: () => (<BlurView tint={scheme === "light" ? "light" : "dark"} intensity={100} style={StyleSheet.absoluteFill} />),
                         tabBarIcon: ({ focused, color, size }) => {
                             let iconName;
 
@@ -97,6 +115,7 @@ export default function Navigator({ setIsLoggedIn, user, users, filteredUsers, s
                         tabBarInactiveTintColor: "gray",
                     })}
                 >
+                    
                     <Tab.Screen name="Home" component={Home} />
                     {user && user.admin && <Tab.Screen
                         name="Admin"

@@ -3,13 +3,13 @@ import { View, Text, ScrollView, ActivityIndicator, TextInput } from 'react-nati
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import OptionsListItem from '../OptionsListItem';
 import { useTheme } from "@react-navigation/native";
-
+import { useHeaderHeight } from '@react-navigation/elements';
 
 export default function UserList({ user, navigation, users, getUsers }) {
     const { colors } = useTheme();
     const [searchQuery, setSearchQuery] = useState("")
     const [filteredUsers, setFilteredUsers] = useState(users)
-
+    const headerHeight = useHeaderHeight();
 
 
 
@@ -45,7 +45,7 @@ export default function UserList({ user, navigation, users, getUsers }) {
 
     return (
         <ScrollView style={{}}>
-            <View style={{ paddingVertical: 20 }}>
+            <View style={{ paddingVertical: 20, paddingTop: 20 + headerHeight, paddingBottom: 80 }}>
                 <TextInput onChangeText={(text) => {
                     updateQuery(text)
                     setSearchQuery(text)

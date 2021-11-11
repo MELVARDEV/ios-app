@@ -10,8 +10,9 @@ export default function OptionsListItem({ text, icon, onPress, circle }) {
         console.log(text)
     }
 
-    return (
+  
 
+    return (
         <TouchableOpacity onPress={onPress} style={
             {
                 backgroundColor: colors.card,
@@ -19,7 +20,6 @@ export default function OptionsListItem({ text, icon, onPress, circle }) {
                 alignSelf: 'center',
                 borderWidth: 0,
                 borderColor: colors.border,
-
                 marginBottom: 15,
                 padding: 12,
                 paddingHorizontal: 20,
@@ -32,7 +32,6 @@ export default function OptionsListItem({ text, icon, onPress, circle }) {
                 <Image
                     style={{ height: 25, width: 25, marginRight: 20, borderRadius: circle ? 100 : 0, }}
                     source={icon}
-
                 />
             </View>
 
