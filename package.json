@@ -1,10 +1,9 @@
 {
-  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
     "serve": "expo start --no-dev --minify --localhost --offline",
-    "ios": "expo start --ios",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "eject": "expo eject"
   },
@@ -17,18 +16,28 @@
     "@react-navigation/stack": "^6.0.11",
     "expo": "~42.0.1",
     "expo-blur": "~9.0.3",
+    "expo-splash-screen": "~0.11.2",
     "expo-status-bar": "~1.0.4",
+    "expo-updates": "~0.8.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "react-native": "~0.63.4",
     "react-native-appearance": "~0.3.3",
+    "react-native-easy-toast": "^2.0.0",
+    "react-native-gesture-handler": "~1.10.2",
+    "react-native-progress": "^5.0.0",
+    "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
+    "react-native-sensitive-info": "^6.0.0-alpha.9",
+    "react-native-unimodules": "0.14.10",
     "react-native-web": "~0.13.12",
     "react-router-native": "^5.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
   },
-  "private": true
+  "private": true,
+  "name": "ios-app",
+  "version": "1.0.0"
 }

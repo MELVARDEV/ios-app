@@ -3,7 +3,7 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { useTheme } from "@react-navigation/native";
 
 
-export default function OptionsListItem({ text, icon, onPress, circle }) {
+export default function OptionsListItem({ text, icon, onPress, onLongPress, circle }) {
     const { colors } = useTheme();
 
     function action() {
@@ -13,7 +13,7 @@ export default function OptionsListItem({ text, icon, onPress, circle }) {
   
 
     return (
-        <TouchableOpacity onPress={onPress} style={
+        <TouchableOpacity onPress={onPress} onLongPress={onLongPress} style={
             {
                 backgroundColor: colors.card,
                 width: '90%',
@@ -24,7 +24,7 @@ export default function OptionsListItem({ text, icon, onPress, circle }) {
                 padding: 12,
                 paddingHorizontal: 20,
                 flexDirection: 'row',
-                justifyContent: 'left',
+                justifyContent: 'flex-start',
                 borderRadius: 10
             }
         } >

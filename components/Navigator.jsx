@@ -18,6 +18,7 @@ import AccountInfo from "./AccountTab/AccountInfo";
 import AdminPanel from './AdminPanelTab/AdminPanel'
 import UserList from "./AdminPanelTab/UserList";
 import UserEdit from "./AdminPanelTab/UserEdit";
+import MailAliases from './AccountTab/MailAliases'
 import { BlurView } from 'expo-blur';
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { styles } from "../Styles";
@@ -45,6 +46,9 @@ export default function Navigator({ setIsLoggedIn, user, users, filteredUsers, s
                 <AccountStack.Screen options={{ title: 'Manage Discord' }} name="manageDiscord">
                     {props => <ConnectDiscord {...props} user={user} />}
                 </AccountStack.Screen>
+                <AccountStack.Screen options={{ title: 'E-Mail Aliases' }} name="mailAliases">
+                    {props => <MailAliases {...props} user={user} />}
+                </AccountStack.Screen>
                 <AccountStack.Screen options={{ title: "Account Info" }} name="accountInfo">
                     {props => <AccountInfo {...props} user={user} />}
                 </AccountStack.Screen>
@@ -57,7 +61,7 @@ export default function Navigator({ setIsLoggedIn, user, users, filteredUsers, s
     function AdminStackScreen() {
 
         return (
-            <AdminStack.Navigator screenOptions={{headerTransparent: true, headerBlurEffect: 'dark'}}>
+            <AdminStack.Navigator screenOptions={{headerTransparent: true, headerBlurEffect: 'prominent'}}>
                 <AdminStack.Screen options={{ title: 'Admin' }} name="admin">
                     {props => <AdminPanel {...props} setIsLoggedIn={setIsLoggedIn} user={user} />}
                 </AdminStack.Screen>

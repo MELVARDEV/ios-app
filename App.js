@@ -4,7 +4,7 @@ import { SafeAreaView, ActivityIndicator, Text, View, StatusBar } from "react-na
 import Login from "./components/Login";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AppearanceProvider, useColorScheme } from "react-native-appearance";
-
+import Toast, {DURATION} from 'react-native-easy-toast'
 
 import Navigator from "./components/Navigator";
 import { styles } from "./Styles";
@@ -106,7 +106,7 @@ export default function App() {
   return (
 
       <View style={styles.view}>
-
+         <Toast ref={(toast) => this.toast = toast}/>
         {isLoggedIn ? (
           <Navigator setIsLoggedIn={setIsLoggedIn} user={user} users={users} getUsers={getUsers} setUsers={setUsers} />
         ) : (

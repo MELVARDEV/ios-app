@@ -189,6 +189,13 @@ export default function Account({ setIsLoggedIn, user, navigation }) {
             />
             <OptionsListItem
               onPress={() => {
+                navigation.navigate("mailAliases");
+              }}
+              text="Manage your email aliases"
+              icon={require("../../assets/email.png")}
+            />
+            <OptionsListItem
+              onPress={() => {
                 navigation.navigate("accountInfo");
               }}
               text="View account info"
