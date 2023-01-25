@@ -12,7 +12,6 @@ export default function UserEdit({ route, user, navigation, getUsers }) {
   const { currentUser } = route.params;
   const scheme = useColorScheme();
 
-
   function getRankString(user) {
     let rank = "User";
     let color = colors.text;
@@ -50,18 +49,17 @@ export default function UserEdit({ route, user, navigation, getUsers }) {
           style: "destructive",
           onPress: async () => {
             const requestOptions = {
-              method: "POST",
+              method: "DELETE",
               headers: {
                 "Content-Type": "application/json",
-                "auth-token": await AsyncStorage.getItem("auth-token"),
+                Authorization: `Bearer ${await AsyncStorage.getItem(
+                  "auth-token"
+                )}`,
               },
-              body: JSON.stringify({
-                _id: currentUser._id,
-              }),
             };
 
             return fetch(
-              `https://api.exory.dev/api/user/remove`,
+              `https://api-v2.exory.dev/user/${currentUser._id}`,
               requestOptions
             )
               .then(async (userResponse) => {
@@ -88,7 +86,7 @@ export default function UserEdit({ route, user, navigation, getUsers }) {
   return (
     <AppearanceProvider>
       <View style={{ height: "100%" }}>
-      <BlurView
+        <BlurView
           style={{
             zIndex: 5,
             height: "100%",
@@ -100,14 +98,14 @@ export default function UserEdit({ route, user, navigation, getUsers }) {
         >
           <HeaderPadding>
             <View style={{ padding: 20 }}>
-            <Image
+              <Image
                 style={{
                   alignSelf: "center",
                   marginBottom: 20,
                   marginTop: 25,
                   width: 150,
                   height: 150,
-                  
+
                   borderRadius: 20,
                 }}
                 resizeMode={"contain"}
@@ -122,7 +120,10 @@ export default function UserEdit({ route, user, navigation, getUsers }) {
                 color={getRankString(currentUser).color}
               />
               <Entry left="Email" right={currentUser.email} />
-              <Entry left="Phone Number" right={ currentUser.phoneNumber.slice(0, -3) + "***"} />
+              <Entry
+                left="Phone Number"
+                right={currentUser.phoneNumber.slice(0, -3) + "***"}
+              />
               {!!currentUser.discordTag && (
                 <Entry left="Discord" right={currentUser.discordTag} />
               )}
