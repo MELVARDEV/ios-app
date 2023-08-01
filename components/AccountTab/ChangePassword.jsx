@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import { AppearanceProvider } from "react-native-appearance";
 import { useTheme } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import HeaderPadding from "../HeaderPadding";
@@ -20,7 +19,7 @@ export default function ChangePassword({ user, navigation }) {
   const { colors } = useTheme();
 
   let requestSMSCode = async () => {
-    console.log(user);
+    //console.log(user);
 
     if (password !== confirmPassword) {
       Alert.alert(
@@ -110,7 +109,7 @@ export default function ChangePassword({ user, navigation }) {
   };
 
   return (
-    <AppearanceProvider>
+    <>
       <HeaderPadding>
         <View style={{ padding: 20 }}>
           <Text
@@ -244,6 +243,6 @@ export default function ChangePassword({ user, navigation }) {
           )}
         </View>
       </HeaderPadding>
-    </AppearanceProvider>
+    </>
   );
 }

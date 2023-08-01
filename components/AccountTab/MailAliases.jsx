@@ -52,7 +52,7 @@ export default function MailAliases({ user }) {
       .then((response) => response.json())
       .then(async (aliases) => {
         setAliases(aliases);
-        console.log(aliases);
+        //console.log(aliases);
       })
       .catch((error) => {
         Alert.alert("Alert.", error, [{ text: "Ok", style: "default" }]);

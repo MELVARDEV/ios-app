@@ -11,14 +11,12 @@ import {
 import { styles } from "../Styles";
 import { Buffer } from "buffer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AppearanceProvider, useColorScheme } from "react-native-appearance";
 import { useTheme } from "@react-navigation/native";
 
 export default function Login({ isLoggedIn, setIsLoggedIn }) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const scheme = useColorScheme();
   const { colors } = useTheme();
 
   let handleLogin = async () => {
@@ -34,7 +32,7 @@ export default function Login({ isLoggedIn, setIsLoggedIn }) {
     return fetch(`https://api-v2.exory.dev/login`, requestOptions)
       .then(handleResponse)
       .then(async (userResponse) => {
-        console.log(userResponse);
+        //console.log(userResponse);
         await AsyncStorage.setItem("auth-token", userResponse.token);
         await AsyncStorage.setItem("userQuery", userName);
         setIsLoggedIn(true);
@@ -60,7 +58,7 @@ export default function Login({ isLoggedIn, setIsLoggedIn }) {
   };
 
   return (
-    <AppearanceProvider>
+    <>
       <StatusBar barStyle={"light-content"} />
       <View style={[styles.view, styles.loginContainer]}>
         {/* <Text style={[styles.header, { marginBottom: 30 }]}>Exory</Text> */}
@@ -118,7 +116,7 @@ export default function Login({ isLoggedIn, setIsLoggedIn }) {
           </Text>
         </TouchableOpacity>
       </View>
-    </AppearanceProvider>
+    </>
   );
 }
 

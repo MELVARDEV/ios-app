@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import Login from "./components/Login";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AppearanceProvider, useColorScheme } from "react-native-appearance";
 import Toast, { DURATION } from "react-native-easy-toast";
 
 import Navigator from "./components/Navigator";
@@ -20,8 +19,6 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState(null);
-
-  const scheme = useColorScheme();
 
   useEffect(() => {
     async function checkLogin() {
@@ -72,7 +69,7 @@ export default function App() {
       .then(handleResponse)
       .then(async (userResponse) => {
         let usersArray = [];
-        console.log(userResponse);
+        //console.log(userResponse);
         userResponse.forEach((user) => {
           user.avatar.url = user.avatar.url.replace(".svg", ".png");
           usersArray.push(user);

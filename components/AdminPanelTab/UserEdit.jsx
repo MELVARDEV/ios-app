@@ -2,15 +2,15 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AppearanceProvider, useColorScheme } from "react-native-appearance";
 import HeaderPadding from "../HeaderPadding";
+import { useColorScheme } from "react-native";
 import { BlurView } from "expo-blur";
 import Entry from "../Entry";
 
 export default function UserEdit({ route, user, navigation, getUsers }) {
+  const colorScheme = useColorScheme();
   const { colors } = useTheme();
   const { currentUser } = route.params;
-  const scheme = useColorScheme();
 
   function getRankString(user) {
     let rank = "User";
@@ -84,7 +84,7 @@ export default function UserEdit({ route, user, navigation, getUsers }) {
   };
 
   return (
-    <AppearanceProvider>
+    <>
       <View style={{ height: "100%" }}>
         <BlurView
           style={{
@@ -94,7 +94,7 @@ export default function UserEdit({ route, user, navigation, getUsers }) {
             position: "absolute",
           }}
           intensity={100}
-          tint={scheme === "light" ? "light" : "dark"}
+          tint={colorScheme}
         >
           <HeaderPadding>
             <View style={{ padding: 20 }}>
@@ -169,6 +169,6 @@ export default function UserEdit({ route, user, navigation, getUsers }) {
           }}
         ></Image>
       </View>
-    </AppearanceProvider>
+    </>
   );
 }

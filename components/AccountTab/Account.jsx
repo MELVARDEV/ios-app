@@ -13,7 +13,6 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { styles } from "../../Styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import HeaderPadding from "../HeaderPadding";
-import { AppearanceProvider, useColorScheme } from "react-native-appearance";
 import OptionsListItem from "../OptionsListItem";
 import { useTheme } from "@react-navigation/native";
 
@@ -63,7 +62,7 @@ export default function Account({ setIsLoggedIn, user, navigation }) {
   }
 
   return (
-    <AppearanceProvider>
+    <>
       <HeaderPadding>
         <View style={styles.view}>
           {/* User details cards */}
@@ -208,6 +207,6 @@ export default function Account({ setIsLoggedIn, user, navigation }) {
           </View>
         </View>
       </HeaderPadding>
-    </AppearanceProvider>
+    </>
   );
 }

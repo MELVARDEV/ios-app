@@ -11,12 +11,13 @@ import { BlurView } from "expo-blur";
 import { useTheme } from "@react-navigation/native";
 import { useHeaderHeight } from "@react-navigation/elements";
 import HeaderPadding from "../HeaderPadding";
-import { AppearanceProvider, useColorScheme } from "react-native-appearance";
 import { styles } from "../../Styles";
 import Entry from "../Entry";
+import { useColorScheme } from "react-native";
 import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 export default function AccountInfo({ user }) {
+  const colorScheme = useColorScheme();
   const { colors } = useTheme();
   const scheme = useColorScheme();
 
@@ -43,10 +44,8 @@ export default function AccountInfo({ user }) {
     return { rank: rank, color: color };
   }
 
-  
-
   return (
-    <AppearanceProvider>
+    <>
       <View style={{ height: "100%" }}>
         <BlurView
           style={{
@@ -56,7 +55,7 @@ export default function AccountInfo({ user }) {
             position: "absolute",
           }}
           intensity={100}
-          tint={scheme === "light" ? "light" : "dark"}
+          tint={colorScheme}
         >
           <HeaderPadding>
             <View style={{ flex: 1, padding: 20, paddingBottom: 120 }}>
@@ -67,7 +66,7 @@ export default function AccountInfo({ user }) {
                   marginTop: 25,
                   width: 150,
                   height: 150,
-                  
+
                   borderRadius: 20,
                 }}
                 resizeMode={"contain"}
@@ -99,6 +98,6 @@ export default function AccountInfo({ user }) {
           }}
         ></Image>
       </View>
-    </AppearanceProvider>
+    </>
   );
 }
