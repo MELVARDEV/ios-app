@@ -9,7 +9,6 @@ import {
   Vibration,
   View,
 } from "react-native";
-import { useHeaderHeight } from "@react-navigation/elements";
 import { styles } from "../../Styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import HeaderPadding from "../HeaderPadding";
@@ -18,7 +17,6 @@ import { useTheme } from "@react-navigation/native";
 
 export default function Account({ setIsLoggedIn, user, navigation }) {
   const { colors } = useTheme();
-  const headerHeight = useHeaderHeight();
 
   let logOut = async () => {
     Alert.alert("Log out", "Do you really want to log out?", [

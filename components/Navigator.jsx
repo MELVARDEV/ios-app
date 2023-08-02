@@ -87,7 +87,6 @@ export default function Navigator({
   const AdminStack = createNativeStackNavigator();
 
   function AdminStackScreen() {
-    const colorScheme = Appearance.getColorScheme();
     return (
       <AdminStack.Navigator
         screenOptions={{
@@ -129,7 +128,9 @@ export default function Navigator({
   return (
     <>
       <StatusBar />
-      <NavigationContainer>
+      <NavigationContainer
+        theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+      >
         <Tab.Navigator
           screenOptions={({ route }) => ({
             tabBarStyle: { position: "absolute" },
