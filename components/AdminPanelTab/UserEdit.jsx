@@ -122,7 +122,10 @@ export default function UserEdit({ route, user, navigation, getUsers }) {
               <Entry left="Email" right={currentUser.email} />
               <Entry
                 left="Phone Number"
-                right={currentUser.phoneNumber.slice(0, -3) + "***"}
+                right={
+                  currentUser.phoneNumber &&
+                  currentUser.phoneNumber.slice(0, -3) + "***"
+                }
               />
               {!!currentUser.discordTag && (
                 <Entry left="Discord" right={currentUser.discordTag} />
@@ -165,7 +168,7 @@ export default function UserEdit({ route, user, navigation, getUsers }) {
           }}
           resizeMode="cover"
           source={{
-            uri: currentUser.bgImg.url,
+            uri: currentUser.avatar.url,
           }}
         ></Image>
       </View>
