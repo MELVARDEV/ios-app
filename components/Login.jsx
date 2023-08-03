@@ -29,7 +29,7 @@ export default function Login({ isLoggedIn, setIsLoggedIn }) {
       },
     };
 
-    return fetch(`https://api-v2.exory.dev/login`, requestOptions)
+    return fetch(`https://api-v2.exory.dev/auth/login`, requestOptions)
       .then(handleResponse)
       .then(async (userResponse) => {
         //console.log(userResponse);

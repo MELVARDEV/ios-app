@@ -43,7 +43,7 @@ export default function ChangePassword({ user, navigation }) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": await AsyncStorage.getItem("auth-token"),
+        Authorization: "Bearer " + (await AsyncStorage.getItem("auth-token")),
       },
       body: JSON.stringify({
         name: user.name,
@@ -51,10 +51,7 @@ export default function ChangePassword({ user, navigation }) {
       }),
     };
 
-    return fetch(
-      `https://api.exory.dev/api/user/reset-password`,
-      requestOptions
-    )
+    return fetch(`https://api-v2.exory.dev/auth/resetPassword`, requestOptions)
       .then(handleResponse)
       .then(async () => {
         setCodeSent(true);
@@ -69,17 +66,15 @@ export default function ChangePassword({ user, navigation }) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": await AsyncStorage.getItem("auth-token"),
+        Authorization: "Bearer " + (await AsyncStorage.getItem("auth-token")),
       },
       body: JSON.stringify({
-        name: user.name,
         password: password,
-        code: smsCode,
       }),
     };
 
     return fetch(
-      `https://api.exory.dev/api/user/reset-password/verify`,
+      `https://api-v2.exory.dev/auth/verifyPasswordReset?userName=${user.name}&code=${smsCode}`,
       requestOptions
     )
       .then(handleResponse)

@@ -85,7 +85,6 @@ export default function AccountInfo({ user }) {
               {user.discordTag && (
                 <Entry left="Discord Username" right={user.discordTag} />
               )}
-              <Entry left="Exory Coins" right={user.exoryCoins} />
             </View>
           </HeaderPadding>
         </BlurView>
@@ -94,7 +93,7 @@ export default function AccountInfo({ user }) {
           style={{ width: "100%", height: "100%", zIndex: 1, opacity: 0.5 }}
           resizeMode="cover"
           source={{
-            uri: user.bgImg.url,
+            uri: user.avatar.url,
           }}
         ></Image>
       </View>

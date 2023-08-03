@@ -20,21 +20,28 @@ export default function MailAliases({ user }) {
   const [aliases, setAliases] = useState();
 
   async function removeAlias(id) {
+    console.log(id);
     const requestOptions = {
-      method: "POST",
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": await AsyncStorage.getItem("auth-token"),
+        Authorization: `Bearer ${await AsyncStorage.getItem("auth-token")}`,
       },
     };
 
-    fetch(`https://api-v2.exory.dev/removeAlias?aliasID=${id}`, requestOptions)
-      .then((response) => response.text())
-      .then(async (text) => {
-        Alert.alert("Message.", text, [{ text: "Ok", style: "default" }]);
+    fetch(
+      `https://api-v2.exory.dev/mail/removeAlias?aliasID=${id}`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then(async (res) => {
+        Alert.alert("Message.", res.message, [
+          { text: "Ok", style: "default" },
+        ]);
         getAliases();
       })
       .catch((error) => {
+        console.log(error);
         Alert.alert("Alert.", error, [{ text: "Ok", style: "default" }]);
       });
   }
@@ -48,7 +55,7 @@ export default function MailAliases({ user }) {
       },
     };
 
-    fetch(`https://api-v2.exory.dev/getAliases`, requestOptions)
+    fetch(`https://api-v2.exory.dev/mail/getAliases`, requestOptions)
       .then((response) => response.json())
       .then(async (aliases) => {
         setAliases(aliases);
@@ -84,12 +91,12 @@ export default function MailAliases({ user }) {
                       },
                     };
                     fetch(
-                      `https://api-v2.exory.dev/addAlias?aliasName=${result}`,
+                      `https://api-v2.exory.dev/mail/addAlias?aliasName=${result}`,
                       requestOptions
                     )
-                      .then((response) => response.text())
+                      .then((response) => response.json())
                       .then(async (response) => {
-                        Alert.alert("Message", response);
+                        Alert.alert("Message", response.message);
                         getAliases();
                       })
                       .catch((error) => {

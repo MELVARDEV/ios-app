@@ -31,7 +31,7 @@ export default function App() {
           },
         };
 
-        return fetch(`https://api-v2.exory.dev/user`, requestOptions)
+        return fetch(`https://api-v2.exory.dev/user/`, requestOptions)
           .then(handleResponse)
           .then(async (userResponse) => {
             console.trace("Fetched user");
@@ -65,7 +65,7 @@ export default function App() {
       },
     };
 
-    return fetch(`https://api-v2.exory.dev/users`, requestOptions)
+    return fetch(`https://api-v2.exory.dev/user/all`, requestOptions)
       .then(handleResponse)
       .then(async (userResponse) => {
         let usersArray = [];
